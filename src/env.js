@@ -14,6 +14,9 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
+    DATABASE_URL: z.string().url(),
+    PRISMA_DATABASE_URL: z.string().url().optional(),
+    POSTGRES_URL: z.string().url().optional(),
   },
 
   /**
@@ -32,6 +35,9 @@ export const env = createEnv({
   runtimeEnv: {
     AUTH_SECRET: process.env.AUTH_SECRET,
     NODE_ENV: process.env.NODE_ENV,
+    DATABASE_URL: process.env.DATABASE_URL,
+    PRISMA_DATABASE_URL: process.env.PRISMA_DATABASE_URL,
+    POSTGRES_URL: process.env.POSTGRES_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
