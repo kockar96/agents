@@ -1,7 +1,5 @@
-import type { Theme as MuiTheme } from "@mui/material/styles";
-
 declare module "@mui/material/styles" {
-  interface Theme extends MuiTheme {
+  interface Theme {
     customShadows?: {
       z1: string;
       z4: string;

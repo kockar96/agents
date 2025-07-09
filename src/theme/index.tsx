@@ -21,23 +21,24 @@ import { typography } from "./typography";
 
 type Props = {
   children: React.ReactNode;
+  mode?: "light" | "dark";
 };
 
-export default function ThemeProvider({ children }: Props) {
+export default function ThemeProvider({ children, mode = "light" }: Props) {
   const memoizedValue = useMemo(
     () => ({
       palette: {
-        ...palette("light"),
+        ...palette(mode),
       },
       customShadows: {
-        ...customShadows("light"),
+        ...customShadows(mode),
       },
       direction: "ltr",
-      shadows: shadows("light"),
+      shadows: shadows(mode),
       shape: { borderRadius: 8 },
       typography,
     }),
-    []
+    [mode]
   );
 
   const theme = createTheme(memoizedValue as unknown as ThemeOptions);
