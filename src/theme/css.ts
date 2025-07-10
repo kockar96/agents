@@ -1,11 +1,164 @@
+import { autocompleteClasses } from "@mui/material/Autocomplete";
+import { checkboxClasses } from "@mui/material/Checkbox";
+import { dividerClasses } from "@mui/material/Divider";
+import { menuItemClasses } from "@mui/material/MenuItem";
+import type { Theme } from "@mui/material/styles";
+import { alpha } from "@mui/material/styles";
+
+// ----------------------------------------------------------------------
+
+export function paper({
+  theme,
+  bgcolor,
+  shadow,
+}: {
+  theme: Theme;
+  bgcolor?: string;
+  shadow?: string;
+}) {
+  return {
+    MuiPaper: {
+      defaultProps: {
+        elevation: 0,
+      },
+      styleOverrides: {
+        root: {
+          backgroundImage: "none",
+          backgroundColor: bgcolor,
+          ...(shadow && {
+            boxShadow: shadow,
+          }),
+        },
+      },
+    },
+  };
+}
+
+// ----------------------------------------------------------------------
+
+export function card({ theme, bgcolor }: { theme: Theme; bgcolor?: string }) {
+  return {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: theme.customShadows.z1,
+          borderRadius: 16,
+          position: "relative",
+          zIndex: 0,
+          ...(bgcolor && {
+            backgroundColor: bgcolor,
+          }),
+        },
+      },
+    },
+  };
+}
+
+// ----------------------------------------------------------------------
+
+export function popover({
+  theme,
+  bgcolor,
+}: {
+  theme: Theme;
+  bgcolor?: string;
+}) {
+  return {
+    MuiPopover: {
+      styleOverrides: {
+        paper: {
+          boxShadow: theme.customShadows.z24,
+          borderRadius: 8,
+          ...(bgcolor && {
+            backgroundColor: bgcolor,
+          }),
+        },
+      },
+    },
+  };
+}
+
+// ----------------------------------------------------------------------
+
+export const menuItem = (theme: Theme) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(0.75, 1),
+  borderRadius: theme.shape.borderRadius * 0.75,
+  "&:not(:last-of-type)": {
+    marginBottom: 4,
+  },
+  [`&.${menuItemClasses.selected}`]: {
+    fontWeight: theme.typography.fontWeightSemiBold,
+    backgroundColor: theme.palette.action.selected,
+    "&:hover": {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+  [`& .${checkboxClasses.root}`]: {
+    padding: theme.spacing(0.5),
+    marginLeft: theme.spacing(-0.5),
+    marginRight: theme.spacing(0.5),
+  },
+  [`&.${autocompleteClasses.option}[aria-selected="true"]`]: {
+    backgroundColor: theme.palette.action.selected,
+    "&:hover": {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+  [`&+.${dividerClasses.root}`]: {
+    margin: theme.spacing(0.5, 0),
+  },
+});
+
+// ----------------------------------------------------------------------
+
+type BgBlurProps = {
+  blur?: number;
+  opacity?: number;
+  color?: string;
+  imgUrl?: string;
+};
+
+export function bgBlur(props?: BgBlurProps) {
+  const color = props?.color || "#000000";
+  const blur = props?.blur || 6;
+  const opacity = props?.opacity || 0.8;
+  const imgUrl = props?.imgUrl;
+
+  if (imgUrl) {
+    return {
+      position: "relative",
+      backgroundImage: `url(${imgUrl})`,
+      "&:before": {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        zIndex: 9,
+        content: '""',
+        width: "100%",
+        height: "100%",
+        backdropFilter: `blur(${blur}px)`,
+        WebkitBackdropFilter: `blur(${blur}px)`,
+        backgroundColor: alpha(color, opacity),
+      },
+    } as const;
+  }
+
+  return {
+    backdropFilter: `blur(${blur}px)`,
+    WebkitBackdropFilter: `blur(${blur}px)`,
+    backgroundColor: alpha(color, opacity),
+  };
+}
+
 // ----------------------------------------------------------------------
 
 type BgGradientProps = {
   direction?: string;
+  color?: string;
   startColor?: string;
   endColor?: string;
   imgUrl?: string;
-  color?: string;
 };
 
 export function bgGradient(props?: BgGradientProps) {
@@ -43,22 +196,21 @@ export function textGradient(value: string) {
 
 // ----------------------------------------------------------------------
 
-export const hideScrollbarY = {
-  msOverflowStyle: "none",
-  scrollbarWidth: "none",
-  overflowY: "scroll",
-  "&::-webkit-scrollbar": {
-    display: "none",
+export const hideScroll = {
+  x: {
+    msOverflowStyle: "none",
+    scrollbarWidth: "none",
+    overflowX: "scroll",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
-} as const;
-
-// ----------------------------------------------------------------------
-
-export const hideScrollbarX = {
-  msOverflowStyle: "none",
-  scrollbarWidth: "none",
-  overflowX: "scroll",
-  "&::-webkit-scrollbar": {
-    display: "none",
+  y: {
+    msOverflowStyle: "none",
+    scrollbarWidth: "none",
+    overflowY: "scroll",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
 } as const;

@@ -5,6 +5,7 @@ import { AuthProvider } from "@/auth/context/nextauth-auth-context";
 import TopLoadingBar from "@/components/top-loading-bar";
 import { auth } from "@/server/auth";
 import ThemeProvider from "@/theme";
+import { SettingsDrawer, SettingsProvider } from "src/components/settings";
 
 import "../styles/globals.css";
 
@@ -24,10 +25,24 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <SessionProvider session={session}>
-          <ThemeProvider>
-            <TopLoadingBar />
-            <AuthProvider>{children}</AuthProvider>
-          </ThemeProvider>
+          <SettingsProvider
+            defaultSettings={{
+              themeMode: "light", // 'light' | 'dark'
+              themeDirection: "ltr", //  'rtl' | 'ltr'
+              themeContrast: "default", // 'default' | 'bold'
+              themeLayout: "vertical", // 'vertical' | 'horizontal' | 'mini'
+              themeColorPresets: "default", // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
+              themeStretch: false,
+            }}
+          >
+            <ThemeProvider>
+              <TopLoadingBar />
+              <AuthProvider>
+                <SettingsDrawer />
+                {children}
+              </AuthProvider>
+            </ThemeProvider>
+          </SettingsProvider>
         </SessionProvider>
       </body>
     </html>

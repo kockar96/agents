@@ -1,122 +1,43 @@
 import type { Theme } from "@mui/material/styles";
-import { alpha } from "@mui/material/styles";
+import { type SvgIconProps } from "@mui/material/SvgIcon";
 
 // ----------------------------------------------------------------------
 
 export function defaultProps(theme: Theme) {
   return {
-    MuiButton: {
+    MuiSvgIcon: {
       defaultProps: {
-        disableElevation: true,
-      },
+        fontSize: "small" as const,
+      } as SvgIconProps,
     },
-    MuiCard: {
+    MuiStack: {
       defaultProps: {
-        elevation: 0,
-      },
-    },
-    MuiPaper: {
-      defaultProps: {
-        elevation: 0,
-      },
-    },
-    MuiTextField: {
-      defaultProps: {
-        variant: "outlined",
-      },
-    },
-    MuiFormControl: {
-      defaultProps: {
-        variant: "outlined",
-      },
-    },
-    MuiChip: {
-      defaultProps: {
-        color: "primary",
-      },
-    },
-    MuiSwitch: {
-      defaultProps: {
-        color: "primary",
-      },
-    },
-    MuiCheckbox: {
-      defaultProps: {
-        color: "primary",
-      },
-    },
-    MuiRadio: {
-      defaultProps: {
-        color: "primary",
-      },
-    },
-    MuiRating: {
-      defaultProps: {
-        color: "warning",
-      },
-    },
-    MuiSlider: {
-      defaultProps: {
-        color: "primary",
-      },
-    },
-    MuiLinearProgress: {
-      defaultProps: {
-        color: "primary",
-      },
-    },
-    MuiCircularProgress: {
-      defaultProps: {
-        color: "primary",
-      },
-    },
-    MuiSkeleton: {
-      defaultProps: {
-        animation: "wave",
-      },
-    },
-    MuiAccordion: {
-      defaultProps: {
-        elevation: 0,
-      },
-    },
-    MuiAccordionSummary: {
-      defaultProps: {
-        sx: {
-          "&.Mui-expanded": {
-            minHeight: "auto",
-          },
-        },
-      },
-    },
-    MuiAccordionDetails: {
-      defaultProps: {
-        sx: {
-          pt: 0,
-        },
-      },
-    },
-    MuiDrawer: {
-      defaultProps: {
-        PaperProps: {
-          sx: {
-            boxShadow: (theme: Theme) => theme.customShadows?.z24,
-          },
-        },
+        useFlexGap: true,
       },
     },
     MuiAppBar: {
       defaultProps: {
-        elevation: 0,
+        color: "transparent",
       },
     },
-    MuiToolbar: {
+    MuiButton: {
       defaultProps: {
-        sx: {
-          "@media (min-width: 600px)": {
-            minHeight: 64,
-          },
+        color: "inherit",
+        disableElevation: true,
+      },
+    },
+    MuiCardHeader: {
+      defaultProps: {
+        titleTypographyProps: { variant: "h6" },
+        subheaderTypographyProps: {
+          variant: "body2",
+          marginTop: theme.spacing(0.5),
         },
+      },
+    },
+    MuiDialogActions: {
+      defaultProps: {
+        disableSpacing: true,
       },
     },
     MuiFab: {
@@ -124,113 +45,58 @@ export function defaultProps(theme: Theme) {
         color: "primary",
       },
     },
-    MuiSpeedDial: {
-      defaultProps: {
-        FabProps: {
-          color: "primary",
-        },
-      },
-    },
-    MuiSpeedDialAction: {
-      defaultProps: {
-        FabProps: {
-          sx: {
-            width: 40,
-            height: 40,
-          },
-        },
-      },
-    },
-    MuiBreadcrumbs: {
-      defaultProps: {
-        sx: {
-          "& .MuiBreadcrumbs-separator": {
-            mx: 1,
-          },
-        },
-      },
-    },
     MuiLink: {
       defaultProps: {
         underline: "hover",
       },
     },
-    MuiListItemButton: {
+    MuiPaper: {
       defaultProps: {
-        sx: {
-          borderRadius: 1,
+        elevation: 0,
+      },
+    },
+    MuiSkeleton: {
+      defaultProps: {
+        animation: "wave",
+        variant: "rounded",
+      },
+    },
+    MuiFilledInput: {
+      defaultProps: {
+        disableUnderline: true,
+      },
+    },
+    MuiFormHelperText: {
+      defaultProps: {
+        component: "div",
+      },
+    },
+    MuiTab: {
+      defaultProps: {
+        disableRipple: true,
+        iconPosition: "start",
+      },
+    },
+    MuiTabs: {
+      defaultProps: {
+        textColor: "inherit",
+        variant: "scrollable",
+        allowScrollButtonsMobile: true,
+      },
+    },
+    MuiTablePagination: {
+      defaultProps: {
+        backIconButtonProps: {
+          size: "small",
+        },
+        nextIconButtonProps: {
+          size: "small",
         },
       },
     },
-    MuiListItemIcon: {
+    MuiSlider: {
       defaultProps: {
-        sx: {
-          minWidth: "auto",
-          mr: 2,
-        },
-      },
-    },
-    MuiListItemText: {
-      defaultProps: {
-        primaryTypographyProps: {
-          typography: "body2",
-        },
-        secondaryTypographyProps: {
-          typography: "caption",
-        },
-      },
-    },
-    MuiListItemAvatar: {
-      defaultProps: {
-        sx: {
-          minWidth: "auto",
-          mr: 2,
-        },
-      },
-    },
-    MuiAvatar: {
-      defaultProps: {
-        sx: {
-          width: 40,
-          height: 40,
-        },
-      },
-    },
-    MuiAvatarGroup: {
-      defaultProps: {
-        sx: {
-          "& .MuiAvatar-root": {
-            border: (theme: Theme) =>
-              `solid 2px ${theme.palette.background.paper}`,
-          },
-        },
-      },
-    },
-    MuiDivider: {
-      defaultProps: {
-        sx: {
-          borderStyle: "dashed",
-        },
-      },
-    },
-    MuiBackdrop: {
-      defaultProps: {
-        sx: {
-          backgroundColor: (theme: Theme) =>
-            alpha(theme.palette.grey[900], 0.8),
-        },
-      },
-    },
-    MuiAlert: {
-      defaultProps: {
-        severity: "info",
-      },
-    },
-    MuiAlertTitle: {
-      defaultProps: {
-        sx: {
-          mb: 0.5,
-        },
+        size: "small",
       },
     },
   };

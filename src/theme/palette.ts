@@ -10,6 +10,20 @@ export type ColorSchema =
   | "warning"
   | "error";
 
+declare module "@mui/material/styles/createPalette" {
+  interface TypeBackground {
+    neutral: string;
+  }
+  interface SimplePaletteColorOptions {
+    lighter: string;
+    darker: string;
+  }
+  interface PaletteColor {
+    lighter: string;
+    darker: string;
+  }
+}
+
 // SETUP COLORS
 
 export const grey = {

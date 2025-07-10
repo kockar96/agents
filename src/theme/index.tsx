@@ -4,44 +4,51 @@ import merge from "lodash/merge";
 import { useMemo } from "react";
 
 import CssBaseline from "@mui/material/CssBaseline";
-import type { ThemeOptions } from "@mui/material/styles";
 import {
   createTheme,
   ThemeProvider as MuiThemeProvider,
+  type ThemeOptions,
 } from "@mui/material/styles";
 
+import { useSettingsContext } from "src/components/settings";
+
 // system
-import { customShadows } from "./custom-shadows";
-import { componentsOverrides } from "./overrides";
 import { palette } from "./palette";
 import { shadows } from "./shadows";
 import { typography } from "./typography";
+// options
+import { customShadows } from "./custom-shadows";
+import { componentsOverrides } from "./overrides";
 
 // ----------------------------------------------------------------------
 
 type Props = {
   children: React.ReactNode;
-  mode?: "light" | "dark";
 };
 
-export default function ThemeProvider({ children, mode = "light" }: Props) {
+export default function ThemeProvider({ children }: Props) {
+  const settings = useSettingsContext();
+
   const memoizedValue = useMemo(
     () => ({
       palette: {
-        ...palette(mode),
+        ...palette(settings.themeMode),
       },
       customShadows: {
-        ...customShadows(mode),
+        ...customShadows(settings.themeMode),
       },
-      direction: "ltr",
-      shadows: shadows(mode),
+      direction: settings.themeDirection,
+      shadows: shadows(settings.themeMode),
       shape: { borderRadius: 8 },
       typography,
     }),
-    [mode]
+    [
+      settings.themeMode,
+      settings.themeDirection,
+    ]
   );
 
-  const theme = createTheme(memoizedValue as unknown as ThemeOptions);
+  const theme = createTheme(memoizedValue as ThemeOptions);
 
   theme.components = merge(componentsOverrides(theme));
 
